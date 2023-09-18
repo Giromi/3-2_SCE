@@ -48,7 +48,7 @@ class MyTello(tello_vib):
         self.moveYaw *= (currentTime <= self.endTime["CW" if self.moveYaw > 0 else "CCW"])
 
     def getMoveAllVelocityList(self):
-        return [self.move_right, self.move_front, self.move_up, self.yaw]
+        return [self.moveRight, self.moveFront, self.moveUp, self.moveYaw]
 
     def setMoveUpVelocity(self, velocity):
         self.moveUp = velocity
