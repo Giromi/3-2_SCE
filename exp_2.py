@@ -5,8 +5,7 @@ Created on Sat Sep 17 20:13:47 2022
 @author: Hak
 """
 
-# from tello_vib import tello_vib
-from tello import tello
+from tello_vib import tello_vib
 import time
 import numpy as np
 
