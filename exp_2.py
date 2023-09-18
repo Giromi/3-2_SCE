@@ -5,8 +5,7 @@ Created on Sat Sep 17 20:13:47 2022
 @author: Hak
 """
 
-# from tello_vib import tello_vib
-from tello import tello
+from tello_vib import tello_vib
 import time
 import numpy as np
 
@@ -15,7 +14,7 @@ is_log = True
 is_rec = True
 
 # Tello 정의
-Tello_1 = tello(is_log,is_rec)
+Tello_1 = tello_vib(is_log,is_rec)
 Tello = Tello_1.tello
 
 # check frame
@@ -38,7 +37,7 @@ while not Tello_1.stop :
     else:
         frame_tmp = frame
     
-    move_right, move_up, move_front, yaw = 0, 0, 0,80
+    move_right, move_up, move_front, yaw = 0, 0, 0 ,0
     x,y,w,h = 0,0,0,0
     
     if Tello_1.tracking:
