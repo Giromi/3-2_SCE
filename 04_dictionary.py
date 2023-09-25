@@ -60,28 +60,33 @@ def isFrontBackBiased(w):
     return 1 if w < FRONTBIAS else (-1 if w > BACKBIAS else 0)
 
 def isFrontFar(w):
-    if moveYaw:
+    if (isLanding == True):
         return 0
-    return 1 if w < FRONTFAR else 0 # mainPath에서 뒤로 갈 필요 없음
+    return 1 if w < FRONTFAR and moveYaw == 0 else 0 # mainPath에서 뒤로 갈 필요 없음
 
 def caseCAU():
-    global moveFront, Tello_1, subSpeed
+    global moveFront, Tello_1, subSpeed, isLanding
+    if (isLanding == True):
+        return 
+    isLanding = True
     print('Target CAU')
     moveFront = isFrontBackBiased(x) * subSpeed
     if moveFront == 0:
         Tello_1.land()
 
 def caseLeft():
-    global moveYaw, yawTimer, mainSpeed
+    global moveYaw, yawTimer, mainSpeed, isLanding
+    if (moveYaw != 0):
+        return
     print('Target Left')
     yawTimer.setEndTimeInMs(YawTime)                   # Yaw 제어 시간 설정
     moveYaw = -mainSpeed
 
 
 def caseRight():
-    if (w < FRONTFAR):
+    global moveYaw, yawTimer, mainSpeed, isLanding
+    if (moveYaw != 0):
         return
-    global moveYaw, yawTimer, mainSpeed
     print('Target Right')
     yawTimer.setEndTimeInMs(YawTime)                   # Yaw 제어 시간 설정   
     moveYaw = mainSpeed
@@ -113,6 +118,7 @@ Tello_1.kp, Tello_1.kd, Tello_1.ki = kp,kd,ki
 timePrev = time.time() - 1
 moveRight, moveUp, moveFront, moveYaw = 0, 0, 0, 0
 yawTimer = TimeChecker()
+isLanding = False
 
 while not Tello_1.stop :
     #%% control
