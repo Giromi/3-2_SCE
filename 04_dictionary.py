@@ -62,6 +62,7 @@ def isFrontBackBiased(w):
 def isFrontFar(w):
     if (isLanding == True):
         return 0
+    print('Target Front', 'w : ', w, 'moveYaw : ', moveYaw)
     return 1 if w < FRONTFAR and moveYaw == 0 else 0 # mainPath에서 뒤로 갈 필요 없음
 
 def caseCAU():
@@ -76,7 +77,7 @@ def caseCAU():
 
 def caseLeft():
     global moveYaw, yawTimer, mainSpeed, isLanding
-    if (moveYaw != 0):
+    if (moveYaw != 0 and w < FRONTFAR):
         return
     print('Target Left')
     yawTimer.setEndTimeInMs(YawTime)                   # Yaw 제어 시간 설정
@@ -85,7 +86,7 @@ def caseLeft():
 
 def caseRight():
     global moveYaw, yawTimer, mainSpeed, isLanding
-    if (moveYaw != 0):
+    if (moveYaw != 0 and w < FRONTFAR):
         return
     print('Target Right')
     yawTimer.setEndTimeInMs(YawTime)                   # Yaw 제어 시간 설정   
