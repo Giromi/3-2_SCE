@@ -20,9 +20,9 @@ DOWNBIAS = -100
 FRONTBIAS = 400
 BACKBIAS = 500 
 
-FRONTFAR = 400 # 50m 보다 멀리 있는 경우
+FRONTFAR = 450 # 50m 보다 멀리 있는 경우
 
-YawTime = 1000 # Yaw 제어 시간
+YawTime = 1200 # Yaw 제어 시간
 
 mainSpeed = 100
 subSpeed = 15
@@ -60,6 +60,8 @@ def isFrontBackBiased(w):
     return 1 if w < FRONTBIAS else (-1 if w > BACKBIAS else 0)
 
 def isFrontFar(w):
+    if moveYaw:
+        return 0
     return 1 if w < FRONTFAR else 0 # mainPath에서 뒤로 갈 필요 없음
 
 def caseCAU():
@@ -77,6 +79,8 @@ def caseLeft():
 
 
 def caseRight():
+    if (w < FRONTFAR):
+        return
     global moveYaw, yawTimer, mainSpeed
     print('Target Right')
     yawTimer.setEndTimeInMs(YawTime)                   # Yaw 제어 시간 설정   
